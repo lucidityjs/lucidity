@@ -1,0 +1,8 @@
+{
+    "name": "@lucidity/vite",
+    "version": "0.1.1",
+    "exports": {
+        ".": "./src/mod.ts"
+    },
+    "license": "MIT"
+}

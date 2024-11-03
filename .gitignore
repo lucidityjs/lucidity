@@ -1,0 +1,5 @@
+deno.lock
+ignored/
+test
+dist
+node_modules

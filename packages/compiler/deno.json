@@ -1,0 +1,23 @@
+{
+    "version": "0.1.11",
+    "name": "@lucidity/compiler",
+    "tasks": {
+        "dev": "deno run -A src/main.ts test/primary.tsx test/primary.out.js"
+    },
+    "compilerOptions": {
+        "lib": ["dom", "deno.window"],
+        "jsx": "react-jsx",
+        "jsxImportSource": "@lucidity/core"
+    },
+    "exports": {
+        ".": "./src/mod.ts"
+    },
+    "imports": {
+        "@lucidity/core": "../core/index.d.ts",
+        "@lucidity/core/jsx-runtime": "../core/jsx-runtime.d.ts"
+    },
+    "publish": {
+        "exclude": ["test"]
+    },
+    "license": "MIT"
+}

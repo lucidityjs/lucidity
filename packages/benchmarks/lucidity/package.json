@@ -1,0 +1,19 @@
+{
+  "name": "lucidity-example-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "upgrade": "pnpm update && deno install"
+  },
+  "devDependencies": {
+    "@lucidity/compiler": "npm:@jsr/lucidity__compiler@^0.1.11",
+    "@lucidity/core": "npm:@jsr/lucidity__core@^0.1.4",
+    "@lucidity/vite": "npm:@jsr/lucidity__vite@^0.1.1",
+    "typescript": "~5.6.3",
+    "vite": "^5.4.10"
+  }
+}

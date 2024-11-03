@@ -1,0 +1,15 @@
+{
+    "name": "@lucidity/core",
+    "version": "0.1.4",
+    "exports": {
+        ".": "./index.d.ts",
+        "./jsx-runtime": "./jsx-runtime.d.ts"
+    },
+    "compilerOptions": {
+        "lib": [
+            "deno.window",
+            "dom"
+        ]
+    },
+    "license": "MIT"
+}
