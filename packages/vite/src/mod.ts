@@ -4,7 +4,7 @@
  */
 
 import type { Plugin } from "npm:vite@5.4.10";
-import { lucidity } from "jsr:@lucidity/compiler@0.1.10";
+import { lucidity } from "jsr:@lucidity/compiler@0.1.11";
 
 /**
  * Creates the Lucidity Vite plugin.
