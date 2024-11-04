@@ -108,6 +108,13 @@ export default function Calculator() {
     </>
 }
 ```
+### Mounting Components to the DOM (`mount`)
+```ts
+import Component from "./components/Component.tsx";
+import { mount } from "@lucidity/core";
+
+mount(document.body, () => Component({}))
+```
 
 ## Current Limitations
 While we try to iron out as many issues as possible, this project is still very early on in development. We appreciate any and all feedback! With that said, here are some limitations at the moment:
