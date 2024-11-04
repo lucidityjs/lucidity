@@ -9,6 +9,7 @@ This document contains a list of tasks (including historical ones from previous 
 - [ ] SVG support (createElementNS, maybe $_eln)
 
 ## TODOs for Lucidity before 0.2 release
+- [ ] !! FIX MEMO AND EFFECT DEPENDENCY TRACKING
 - [ ] full reactive component props (\$_c(el$n, () => props[x] or props.x) on props property access, dynamically get name of first arg)
 - [ ] fix "dangling signals" (_lcdcl is initialized to another listener arr when $_c is called with a non-reactive fn) (this is really just adding _lcdcl = [] to the start of the $_c fn)
 - [ ] automatic memoization

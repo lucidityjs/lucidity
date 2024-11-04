@@ -40,10 +40,79 @@ The bundle sizes (not included in this graph) are:
 |Solid|9.85kB|4.07kB|
 |React|143.66kB|46.96kB|
 
+## Examples
+Below are some basic examples of using different aspects of Lucidity:
+### Counter (Props, Signals, Memos, Styles)
+```tsx
+import { createSignal, createMemo } from "@lucidity/core";
+export default function Counter(props: { initial?: number }) {
+    const [value, setValue] = createSignal(props.initial ?? 0);
+    const up = createMemo(() => value() + 1);
+    const down = createMemo(() => value() - 1);
+    return <div style={{ display: "flex", gap: "12px", "align-items": "center" }}>
+        <button onClick={() => setValue(value() - 1)}>👎 {down()}</button>
+        <span>Count is: {value()}</span>
+        <button onClick={() => setValue(value() + 1)}>👍 {up()}</button>
+    </div>
+}
+```
+### Random Number Generator (Signals, Effects, Fragments)
+```tsx
+import { createSignal, createEffect } from "@lucidity/core";
+export default function RNG() {
+    const [num, setNum] = createSignal(Math.random());
+    createEffect(() => console.log("New number:", num()))
+    return <>
+        <button onClick={() => setNum(Math.random())}>Generate a new number</button> 
+        <span>Current number is: {num()}</span>
+    </>
+}
+```
+### Calculator - Advanced (Signals, Memos, Effects)
+> Note that this temporarily uses an odd syntax to "manually" track dependencies. This is because block statements in memos are a little buggy right now and do not properly track dependencies. This workaround should work for most scenarios until it is fixed.
+```tsx
+import { createSignal, createMemo, createEffect } from "@lucidity/core";
+export default function Calculator() {
+    const [lhs, setLHS] = createSignal(0);
+    const [op, setOp] = createSignal<"+" | "-" | "*" | "/" | "%" | "**">("+");
+    const [rhs, setRHS] = createSignal(0);
+    const output = createMemo(() => {
+        // a workaround: manually call accessors of the deps
+        // this will be fixed in v0.2!!
+        // note that this doesn't affect performance :)
+        op(); lhs(); rhs();
+        // parse the values (they are strings by default)
+        let nl = +lhs();
+        let nr = +rhs();
+        switch (op()) {
+            case "+": return nl + nr;
+            case "-": return nl - nr;
+            case "*": return nl * nr;
+            case "/": return nl / nr;
+            case "%": return nl % nr;
+            case "**": return nl ** nr;
+        }
+    })
+    return <>
+        <input type="number" onInput={ev => setLHS(ev.target.value)} value={0} />
+        <select onChange={ev => setOp(ev.target.value)}>
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+            <option>%</option>
+            <option>**</option>
+        </select>
+        <input type="number" onInput={ev => setRHS(ev.target.value)} value={0} />
+        <span>Output: {output()}</span>
+    </>
+}
+```
+
 ## Current Limitations
 While we try to iron out as many issues as possible, this project is still very early on in development. We appreciate any and all feedback! With that said, here are some limitations at the moment:
 - Only one component per file is allowed
-- Memos are a little buggy if there is a lot of nesting (may not ever be fixed; doesn't seem important)
+- Memos do not properly track dependencies if the function does not directly return an expression.
 - Compiler CLI options are limited
 - No direct data fetching 
 - With `@lucidity/vite`, HMR will just refresh the page whenever a file is updated
